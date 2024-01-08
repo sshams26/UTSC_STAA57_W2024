@@ -10,65 +10,104 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-## Topic 1
+## Topic 1: Quiz
 
-### Exercise 
 
-*Here's a simple exercise with an empty code chunk provided for entering the answer.*
 
-Write the R code required to add two plus two:
 
-```{r two-plus-two, exercise=TRUE}
+```{r quiz1}
+quiz(
+  question("In which of the following panes the information of created objects such as scalars, vectors or
+data-sets, in any session show up?",
+    answer("source",message = "The source pane is where you can open/edit code files and save for future use."),
+    answer("console",message =  "The console is where you can type in the codes and where R prints the numeric outputs."),
+    answer("Environment", correct = TRUE),
+    answer("Plots/Help/Files", message = "The Plots/Help/Files pane is where you can toggle between any graphical output,
+help pages, or file directories."),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## Topic 2: Try to do these using for-loop or while loop and/or using if statement.
+
+### a) 1 ∗ 2 ∗ 3 ∗ 4 ∗ ..... ∗ 100 =?
+
+We all know that this is actually 100! and computed by the following expression in r.
+```{r factorial,exercise=TRUE, exercise.eval=TRUE}
+factorial(100)
+```
+
+How can we compute this using the functions given above?
+```{r multiplication, exercise=TRUE}
 
 ```
 
-### Exercise with Code
-
-*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
-
-Now write a function that adds any two numbers and then call it:
-
-```{r add-function, exercise=TRUE, exercise.lines = 5}
-add <- function() {
+```{r multiplication-hint}
+s=1
+for (i in 1:100) {
   
 }
 ```
 
-## Topic 2
+### b) 1 − 2 + 3 − 4 + 5 − .... − 100 =?
 
-### Exercise with Hint
+Try to solve this using a loop
 
-*Here's an exercise where the chunk is pre-evaluated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+```{r add-subtract, exercise=TRUE}
 
-Modify the following code to limit the number of rows printed to 5:
-
-```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
-mtcars
 ```
 
-```{r print-limit-hint}
-head(mtcars)
+You can also try doing this question with seq() and sum() without using loop.
+```{r add-subtract-additional, exercise=TRUE}
+
 ```
 
-### Quiz
 
-*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
 
-Some questions to verify that you understand the purposes of various base and recommended R packages:
+### c) 110 + 120 + 130 + ... + 500 =?
 
-```{r quiz}
-quiz(
-  question("Which package contains functions for installing other R packages?",
-    answer("base"),
-    answer("tools"),
-    answer("utils", correct = TRUE),
-    answer("codetools")
-  ),
-  question("Which of the R packages listed below are used to create plots?",
-    answer("lattice", correct = TRUE),
-    answer("tools"),
-    answer("stats"),
-    answer("grid", correct = TRUE)
-  )
-)
+```{r sum-hundred, exercise=TRUE}
+
+```
+
+You can also try doing this question with seq() and sum() without using loop.
+
+
+
+### d).\[
+\sum_{i=1}^{100} i^3
+\]
+
+```{r sum-hundred-additional, exercise=TRUE}
+
+```
+
+### e).Find the maximum value of N for which 1 + 2 + 3 + ... + N < 4000.
+
+\(\frac{{(1 + N) \cdot N}}{2} = 4000\)
+
+\((1 + N) \cdot N = 8000\)
+
+\(N^2 + N - 8000 = 0\)
+
+Recall that the quadratic function can be solved by the formula
+
+\[ x = \frac{{-b \pm \sqrt{{b^2 - 4ac}}}}{{2a}} \]
+
+here, a = 1, b=1, c=-8000
+
+```{r max-verify,exercise=TRUE, exercise.eval=TRUE}
+a = 1
+b=1
+c=-8000
+(-b+sqrt(b^2-4*a*c))/2*a
+(-b-sqrt(b^2-4*a*c))/2*a
+```
+The second answer can be neglected since it is negative, based on the first output, the answer should be 88 or 89? Try to solve this question using for-loop or while loop and/or using if statement in the following chunk.
+
+```{r max-index, exercise=TRUE}
+
 ```

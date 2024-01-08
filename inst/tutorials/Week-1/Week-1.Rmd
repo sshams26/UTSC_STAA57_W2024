@@ -1,5 +1,5 @@
 ---
-title: "Our First Lesson"
+title: "Week-1 Interactive Practice"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -31,82 +31,55 @@ help pages, or file directories."),
 
 
 
-## Topic 2: Try to do these using for-loop or while loop and/or using if statement.
+## Topic 2: for-loop
 
-### a) 1 ∗ 2 ∗ 3 ∗ 4 ∗ ..... ∗ 100 =?
+### a) 1 ∗ 2 ∗ 3 ∗ 4 ∗ ..... ∗ 10 =?
 
-We all know that this is actually 100! and computed by the following expression in r.
-```{r factorial,exercise=TRUE, exercise.eval=TRUE}
-factorial(100)
+We all know that this is actually 10! and computed by the following expression in r.
+```{r factorial,echo=T}
+factorial(10)
 ```
 
-How can we compute this using the functions given above?
+How can we compute this using a for-loop?
 ```{r multiplication, exercise=TRUE}
 
 ```
 
 ```{r multiplication-hint}
 s=1
-for (i in 1:100) {
+for (i in 1:10) {
   
 }
 ```
 
 ### b) 1 − 2 + 3 − 4 + 5 − .... − 100 =?
 
-Try to solve this using a loop
+Try to solve this using a for-loop and an if() statement inside the loop
 
 ```{r add-subtract, exercise=TRUE}
 
 ```
 
-You can also try doing this question with seq() and sum() without using loop.
-```{r add-subtract-additional, exercise=TRUE}
 
+```{r add-subtract-hint}
+# this following line checks if "i" is divisible by 2 or not
+(i%%2)==0
 ```
 
 
 
-### c) 110 + 120 + 130 + ... + 500 =?
-
-```{r sum-hundred, exercise=TRUE}
-
-```
-
-You can also try doing this question with seq() and sum() without using loop.
 
 
+## Topic 3: while-loop
 
-### d).\[
-\sum_{i=1}^{100} i^3
-\]
+### e) Find the maximum value of N for which 1 + 2 + 3 + ... + N < 4000.
 
-```{r sum-hundred-additional, exercise=TRUE}
+The answer is 88.
 
-```
+\  
 
-### e).Find the maximum value of N for which 1 + 2 + 3 + ... + N < 4000.
 
-\(\frac{{(1 + N) \cdot N}}{2} = 4000\)
-
-\((1 + N) \cdot N = 8000\)
-
-\(N^2 + N - 8000 = 0\)
-
-Recall that the quadratic function can be solved by the formula
-
-\[ x = \frac{{-b \pm \sqrt{{b^2 - 4ac}}}}{{2a}} \]
-
-here, a = 1, b=1, c=-8000
-
-```{r max-verify,exercise=TRUE, exercise.eval=TRUE}
-a = 1
-b=1
-c=-8000
-(-b+sqrt(b^2-4*a*c))/2*a
-(-b-sqrt(b^2-4*a*c))/2*a
-```
-The second answer can be neglected since it is negative, based on the first output, the answer should be 88 or 89? Try to solve this question using for-loop or while loop and/or using if statement in the following chunk.
+Try to find this using a while-loop. Your loop should keep adding as long as the cumulative sum does not exceed 4000.
 
 ```{r max-index, exercise=TRUE}
 

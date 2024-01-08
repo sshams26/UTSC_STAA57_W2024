@@ -1,5 +1,5 @@
 Package: UTSC.STAA57
-Title: What the Package Does (One Line, Title Case)
+Title: Interactive tutorials for STAA57 (UofT Scarborough)
 Version: 0.0.0.9000
 Authors@R: 
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),

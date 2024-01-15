@@ -1,0 +1,155 @@
+---
+title: "Week-2 Interactive Practice"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Vectors and Functions
+
+### Q1
+
+x = c("T","T","F")
+```{r quiz1}
+quiz(
+  question("What would the class(x) be",
+    answer("numeric"),
+    answer("logical"),
+    answer("integer"),
+    answer("character",correct=TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+x = c(2,6,7,9,8,10)
+```{r quiz2}
+quiz(
+  question("What would x[c(2,6)] be",
+    answer("6 10",correct=TRUE),
+    answer("7 9 8 10"),
+    answer("NA"),
+    answer("2 6"),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Q2
+
+Check the following code and output, how to generate the same output *within one line without using y=c(......)*
+
+```{r vector1,exercise=TRUE, exercise.eval=TRUE}
+my_func = function(){
+  x=3
+  return(x)
+}
+(y = replicate(5,my_func()))
+```
+
+```{r vec1,exercise=TRUE}
+
+```
+
+```{r vec1-hint}
+(y=rep())
+```
+
+### Q3
+Please read the following code
+```{r vector2,exercise=TRUE, exercise.eval=TRUE}
+v=vector()
+
+for(i in 1:50){
+  v[i] = i^2
+}
+v
+```
+
+How to create an equivalent output within 2 lines
+```{r vec2,exercise=TRUE}
+
+```
+
+```{r vec2-hint}
+v = seq()
+```
+
+Then please create a plot of v and overlay the derivative of y = x^2 on top of v
+```{r vec2-additional,exercise=TRUE}
+v=vector()
+
+for(i in 1:50){
+  v[i] = i^2
+}
+
+```
+
+```{r vec2-additional-hint}
+plot(v)
+abline(a=0,b=2)
+```
+
+## Introduction to tidyverse
+
+In this section we will use the built-in data set mtcars
+
+```{r tdvs1, exercise=TRUE, exercise.eval=TRUE,message=FALSE}
+library(tidyverse);
+glimpse(mtcars)
+```
+
+```{r tdvs2, exercise=TRUE, exercise.eval=TRUE}
+library(tidyverse)
+head(mtcars)
+```
+
+### Q1
+
+For all of the cars whose gear=5, what is the maximum mpg value of them, i.e. write code that is equivalent to the following code
+
+```{r tdvs3, exercise=TRUE, exercise.eval=TRUE}
+max(mtcars$mpg[mtcars$gear==5 | mtcars$gear==4])
+```
+```{r tdvs4, exercise=TRUE}
+library(tidyverse)
+```
+
+```{r tdvs4-hint}
+mtcars %>% filter(gear %in% c(4,5)) %>%summarise(MAX=max(mpg))
+```
+
+### Q2
+For different combinations of variables vs and am, what are the number of cars and mean of qsec?
+
+```{r tdvs5, exercise=TRUE}
+library(tidyverse)
+```
+
+```{r tdvs5-hint}
+library(tidyverse)
+mtcars %>% group_by(vs,am) %>% summarise(N=n(),AVG=mean(qsec))
+```
+
+### Q3
+Create a plot where x-axis is variable mpg and y-axis is variable disp by extracting the 2 variables and then create plot.
+
+Equivalently, you can plot using the following code
+```{r tdvs6, exercise=TRUE, exercise.eval=TRUE}
+plot(x=mtcars$mpg,y=mtcars$disp)
+```
+
+```{r tdvs7, exercise=TRUE}
+library(tidyverse)
+```
+
+```{r tdvs7-hint}
+library(tidyverse)
+mtcars %>% select(mpg,disp) %>% plot()
+```
+

@@ -1,5 +1,6 @@
 ---
 title: "Week-2 Interactive Practice"
+author: "Created by: Congyu Hang and Shahriar Shams"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -14,10 +15,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ### Q1
 
-x = c("T","T","F")
+x = c("T", "T", "F")
 ```{r quiz1}
 quiz(
-  question("What would the class(x) be",
+  question("What would be the output of 'class(x)'",
     answer("numeric"),
     answer("logical"),
     answer("integer"),
@@ -27,7 +28,11 @@ quiz(
 )
 ```
 
-x = c(2,6,7,9,8,10)
+\  
+
+
+### Q2
+x = c(2, 6, 7, 9, 8, 10)
 ```{r quiz2}
 quiz(
   question("What would x[c(2,6)] be",
@@ -40,17 +45,45 @@ quiz(
 )
 ```
 
-### Q2
 
-Check the following code and output, how to generate the same output *within one line without using y=c(......)*
+\  
 
-```{r vector1,exercise=TRUE, exercise.eval=TRUE}
+
+### Q3
+x = c(2, 6, 7, 9, 8, 10)
+
+```{r quiz3}
+quiz(
+  question("which of these following codes will give us 6 and 8 out of this vector?",
+    answer("x[c(2,5)]"),
+    answer("x[-c(1,3,4,6)]"),
+    answer("x[c(FALSE, TRUE, FALSE, FALSE, TRUE, FALSE)]"),
+    answer("all of the above", correct=TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+\  
+
+
+
+### Q4
+
+Check the following code and output
+
+```{r vector1,echo=T}
 my_func = function(){
   x=3
   return(x)
 }
 (y = replicate(5,my_func()))
 ```
+
+
+how to generate the same output *with one line of code without using y=c(......)*
 
 ```{r vec1,exercise=TRUE}
 
@@ -60,9 +93,21 @@ my_func = function(){
 (y=rep())
 ```
 
-### Q3
+
+
+
+
+\  
+
+
+
+
+
+
+
+### Q5
 Please read the following code
-```{r vector2,exercise=TRUE, exercise.eval=TRUE}
+```{r vector2,echo=T}
 v=vector()
 
 for(i in 1:50){
@@ -71,7 +116,7 @@ for(i in 1:50){
 v
 ```
 
-How to create an equivalent output within 2 lines
+How to create the object 'v' without using any loop
 ```{r vec2,exercise=TRUE}
 
 ```
@@ -80,76 +125,85 @@ How to create an equivalent output within 2 lines
 v = seq()
 ```
 
-Then please create a plot of v and overlay the derivative of y = x^2 on top of v
-```{r vec2-additional,exercise=TRUE}
-v=vector()
 
-for(i in 1:50){
-  v[i] = i^2
-}
-
-```
-
-```{r vec2-additional-hint}
-plot(v)
-abline(a=0,b=2)
-```
-
-## Introduction to tidyverse
+## Introduction to _tidyverse_
 
 In this section we will use the built-in data set mtcars
 
-```{r tdvs1, exercise=TRUE, exercise.eval=TRUE,message=FALSE}
+```{r tdvs1,echo=T,message=F,warning=F}
 library(tidyverse);
 glimpse(mtcars)
 ```
 
-```{r tdvs2, exercise=TRUE, exercise.eval=TRUE}
-library(tidyverse)
+```{r tdvs2, echo=T}
 head(mtcars)
 ```
 
+Read this page for a description of the dataset: https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/mtcars
+
+
+\  
+
+
+
 ### Q1
 
-For all of the cars whose gear=5, what is the maximum mpg value of them, i.e. write code that is equivalent to the following code
+Write the tidyverse equivalence of the following code.
 
-```{r tdvs3, exercise=TRUE, exercise.eval=TRUE}
+```{r tdvs3, echo=T}
 max(mtcars$mpg[mtcars$gear==5 | mtcars$gear==4])
 ```
+
+
 ```{r tdvs4, exercise=TRUE}
 library(tidyverse)
+
 ```
 
 ```{r tdvs4-hint}
 mtcars %>% filter(gear %in% c(4,5)) %>%summarise(MAX=max(mpg))
 ```
 
-### Q2
-For different combinations of variables vs and am, what are the number of cars and mean of qsec?
 
-```{r tdvs5, exercise=TRUE}
+\  
+
+### Q2
+Recreate this following table
+
+```{r tdvs55, echo=F,message=F}
 library(tidyverse)
+mtcars %>% group_by(cyl,am) %>% summarise(N=n(),AVG_mpg=mean(mpg))
 ```
+
+(where N is the number of cars/observation in the dataset)
+
+
+
+```{r tdvs5, exercise=TRUE,message=F}
+
+```
+
 
 ```{r tdvs5-hint}
-library(tidyverse)
-mtcars %>% group_by(vs,am) %>% summarise(N=n(),AVG=mean(qsec))
+#library(tidyverse)
+#mtcars %>% group_by( ) %>% summarise(N= ,AVG_mpg= )
 ```
 
-### Q3
-Create a plot where x-axis is variable mpg and y-axis is variable disp by extracting the 2 variables and then create plot.
 
-Equivalently, you can plot using the following code
-```{r tdvs6, exercise=TRUE, exercise.eval=TRUE}
-plot(x=mtcars$mpg,y=mtcars$disp)
+\  
+
+### Q3
+Recreate this following graph using the dataset.
+
+```{r tdvs6, echo=F}
+mtcars %>% select( mpg , disp ) %>% plot()
 ```
 
 ```{r tdvs7, exercise=TRUE}
-library(tidyverse)
+
 ```
 
 ```{r tdvs7-hint}
-library(tidyverse)
-mtcars %>% select(mpg,disp) %>% plot()
+#mtcars %>% select( , ) %>% plot()
 ```
 

@@ -125,6 +125,45 @@ How to create the object 'v' without using any loop
 v = seq()
 ```
 
+\  
+
+
+
+### Q6
+
+Suppose you are playing a game where a fair die is rolled and if it is a six, you win six dollars. If it is 4 or 5 you do not win anything. But if it is 1,2 or 3 you have to pay 1 dollar (you lose). By writing a function that mimics this game, and by replicating the function 10000 times, calculate the expected gain per game (i.e. average).  
+
+(theoretically, the answer should be 0.5 dollar)
+
+```{r vec3,exercise=TRUE,excercise.lines=10}
+
+```
+
+```{r vec3-hint}
+# Let, x is the outcome of the die, y is the associated dollar amount
+# my_function = function(){
+#     x = sample(c(1,2,3,4,5,6),size=1)
+#     if(x == ){ 
+#       y = 
+#     }else if (x %in% c(  )){
+#       y = 
+#     }else{
+#       y = 
+#      }
+#     return(y)
+# }
+# replicate( )
+# mean()
+```
+
+
+
+
+
+
+
+
+
 
 ## Introduction to _tidyverse_
 

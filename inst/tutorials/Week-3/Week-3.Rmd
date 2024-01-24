@@ -1,0 +1,133 @@
+---
+title: "Week-3 Interactive Practice"
+author: "Created by: Congyu Hang and Shahriar Shams"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Data Wrangling
+In this question, we will use the following built-in data set in r called "iris"
+```{r iris1,exercise=TRUE, exercise.eval=TRUE, message=FALSE}
+library(tidyverse);
+glimpse(iris)
+```
+
+```{r iris2,exercise=TRUE, exercise.eval=TRUE}
+head(iris)
+```
+
+\  
+
+
+### a).
+Suppose we are only interested in the variables that are relevant to petals (i.e. strats with the word "Petal") of the flowers and the variable type is numeric. Try to complete the code.
+```{r iris3,exercise=TRUE}
+library(tidyverse)
+iris %>% select()
+```
+
+```{r iris3-hint}
+iris %>% select(starts_with()&where())
+```
+
+\  
+
+
+### b).
+Based on some calculations, we found that linear combination of petal length and petal width captures most of the variations of these 2 variables, the new variable is named petal.pca = Petal.Length + Petal.Width. Add petal.pca to the table and save it under the name "d".
+
+```{r iris4,exercise=TRUE}
+library(tidyverse)
+```
+
+```{r iris4-hint}
+d = iris  %>% mutate(petal.pca = )
+```
+
+\  
+
+
+### c).
+Please generate a table that shows the means of petal.pca corresponding to each species.
+
+```{r iris5,exercise=TRUE}
+library(tidyverse)
+
+```
+
+```{r iris5-hint}
+d  %>% group_by() %>% summarise(pca.mean = mean( ))
+```
+
+
+\  
+
+### d).
+Use the table from part b (please rewrite your code in part b) and create a new categorical variable called "petal.level".
+
+If petal.pca value is smaller than 25th quantile of petal.pca, then petal.level = 1.
+If petal.pca value is in between 25th quantile and 75th quantile of petal.pca, then petal.level = 2 (closed interval).
+If petal.pca value is larger than 75th quantile of petal.pca, then petal.level = 3.
+
+
+```{r iris6,exercise=TRUE}
+
+```
+
+```{r iris6-hint}
+#...mutate(petal.level = case_when(petal.pca < quantile(petal.pca,probs = 0.25) ~ 1,...))
+```
+
+\  
+
+## ggplot()
+
+### a). 
+Use the table from part b (please rewrite your code in part b, you can give a name to the part b table if you want) and create the following plot.
+
+```{r echo=FALSE,message=FALSE}
+library(tidyverse)
+d = iris %>%mutate(petal.pca = Petal.Length+Petal.Width)
+ggplot(d,aes(x=petal.pca,color=Species,fill=Species))+geom_histogram()
+```
+
+```{r iris7,exercise=TRUE}
+library(tidyverse)
+```
+
+```{r iris7-hint}
+#d = 
+#ggplot(d,aes(x=..., y = ..., color=..., fill=...))+geom_histogram()
+```
+
+\  
+
+### b).
+Please use the table you created in part d (table including the following variables "Petal.Length","Petal.Width","Species", "petal.pca","petal.level") to generate the following graph. You might need to rewrite the code in part d.
+```{r echo=FALSE,message=FALSE}
+library(tidyverse)
+d = iris  %>%mutate(petal.pca = Petal.Length+Petal.Width) %>% mutate(petal.level = case_when(petal.pca < quantile(petal.pca,probs = 0.25) ~ 1,
+                                                                                                                                                    petal.pca >= quantile(petal.pca,probs = 0.25) & petal.pca <= quantile(petal.pca,probs = 0.75) ~ 2,
+                                                                                                                                                    TRUE ~ 3))
+
+ggplot(d,aes(x=Petal.Width,
+               y=petal.pca,
+               shape=Species,
+               color=petal.level))+geom_point()
+```
+```{r iris8, exercise=TRUE}
+library(tidyverse)
+```
+
+```{r iris8-hint}
+#ggplot(...,aes(x=...,
+#              y=...,
+#              shape=...,
+#              color=...))+geom_point()
+```

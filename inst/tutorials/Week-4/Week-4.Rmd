@@ -1,0 +1,185 @@
+---
+title: "Week-4 Interactive Practice"
+author: "Created by: Congyu Hang and Shahriar Shams"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## plots using ggplot()
+
+### Question 1
+
+__a).__
+
+
+```{r echo=FALSE,message=FALSE}
+library(tidyverse)
+library(gapminder)
+library(ggplot2)
+library(ggExtra)
+data(gapminder)
+
+head(gapminder)
+```
+
+In this question, we will use the data set "gapminder" again. Please generate the following plot based on "gapminder". Where "Average Global GDP percap" is the average of "gdpPercap" of all countries for a particular year.
+
+
+Hint: You might need to generate a new table first. 
+
+```{r echo=FALSE,message=FALSE}
+yr_gdp=gapminder %>% select(year,gdpPercap)%>%  group_by(year) %>% summarise(avg.gdp = mean(gdpPercap))
+ggplot(yr_gdp,aes(year,avg.gdp))+geom_point()+geom_smooth(method = "lm")+ylab("Average Global GDPpercap")
+```
+```{r plot1,exercise=TRUE}
+library(tidyverse)
+library(gapminder)
+library(ggplot2)
+library(ggExtra)
+data(gapminder)
+
+```
+
+```{r plot1-hint}
+#d=gapminder %>% (select(...)%>%)  group_by(...) %>% summarise(...)
+#
+#ggplot(d, aes(...))+geom_point()+geom_smooth(...)
+```
+
+
+
+
+\  
+
+\  
+
+__b).__ Please generate the following scatter plot plot based on "gapminder".
+
+Hint: You might need to generate a new table first. And there are two layers: one for the points and one for the lines.
+
+
+```{r echo=FALSE,message=FALSE}
+continent_gdp = gapminder %>% select(year,continent,gdpPercap)%>%  group_by(continent,year) %>% summarise(avg.gdp = mean(gdpPercap))
+ggplot(continent_gdp,aes(year,avg.gdp,color=continent))+
+  geom_point()+ geom_line()+
+  ylab("Average Continental GDPpercap")
+```
+
+
+```{r plot2,exercise=TRUE}
+library(tidyverse)
+library(gapminder)
+library(ggplot2)
+library(ggExtra)
+data(gapminder)
+
+```
+
+```{r plot2-hint}
+#d = gapminder %>% group_by(continent,year) %>% summarise(...)
+#
+#ggplot(d, aes(...)) + geom_point() + geom_line() + ylab("")
+```
+
+
+\  
+
+\  
+
+__c).__ Please generate the following density plot based on the "lifeExp" variable and a new categorical variable to be created in the following way.
+
+Name:Time Point
+
+If year is between [1952,1967], Time Point=1;
+
+if year is between [1972,1987], Time Point=2;
+
+if year is between [1992,2007], Time Point=3.
+
+
+```{r echo=FALSE,message=FALSE}
+category_yr = gapminder %>% mutate(tp=case_when(year <= 1967 ~ 1,
+                                                year >= 1992 ~ 3,
+                                                TRUE ~ 2))
+ggplot(category_yr,aes(lifeExp))+geom_density(aes(fill = continent),alpha=0.5)+facet_wrap(~tp)+theme(legend.position = "bottom")
+```
+```{r plot3,exercise=TRUE}
+library(tidyverse)
+library(gapminder)
+library(ggplot2)
+library(ggExtra)
+data(gapminder)
+
+```
+
+```{r plot3-hint}
+#d = gapminder %>% mutate( tp = case_when( ))
+#
+#ggplot(d, aes(...))+geom_density(...)+facet_wrap(...)
+```
+
+
+## Miscellaneous
+
+
+### Question 2 Wide Data and Long Data
+I created a simple data set manually as the following with 3 individuals and their income measured triple times.
+Please convert this wide data d to long data with a variable called TimePoint that takes values Measurement.1, Measurement.2 and Measurement.3 and on the right hand side of the column includes the corresponding incomes. 
+
+
+```{r wide,exercise=TRUE}
+library(tidyverse)
+d = data.frame("Name" = c("Barbie","Ken","Allan"),
+               "Measurement.1" = c(6662,5789,6267),
+               "Measurement.2" = c(10059.0,8749.5,9466.5),
+               "Measurement.3" = c(17667.2,15117.4,16360.2))
+```
+
+
+
+
+```{r wide-hint}
+#...pivot_longer(cols=...,names_to=...,values_to=...)
+```
+
+### Question 3 Matrix Multiplication
+
+I have created a table called demand that contains the number of cups of coffee and the amount of snacks that they paid for during their events. The second table is called Starbucks with the prices of coffee and snacks and the stars customers earn from buying the goods. Please use matrix multiplication to show the cost of coffee and amount of stars earned for each event.
+
+```{r matrix,exercise=TRUE}
+demand = data.frame("Event" = c("A","B","C","D"),
+                    "Coffee" = c(550,100,400,440),
+                    "Snacks" = c(670,170,500,510))
+Starbucks = data.frame("Item" = c("Coffee","Snack"),
+                   "Price" = c(6.99,2.99),
+                   "Stars" = c(20,10))
+```
+
+
+
+
+```{r matrix-hint}
+#as.matrix(demand %>% select(...))%*%as.matrix(Starbucks %>% select(...))
+#purchase = as.matrix(demand %>% select(where(is.numeric)))%*%as.matrix(Starbucks %>% select(where(is.numeric)))
+```
+
+
+### Question 4
+
+```{r quiz1}
+quiz(
+  question("Suppose the matrix that you got with the cost of coffee and amount of stars earned for each event is called purchase, which of the options will generate the average cost of coffee and average  amount of stars earned for each event,select all that apply",
+    answer("lapply(list(purchase[,1],purchase[,2]), mean)",correct=TRUE),
+    answer("apply(purchase,1,function(x) sum(x)/length(x))"),
+    answer("apply(purchase,2,mean)",correct=TRUE),
+    answer("apply(purchase,2,function(x) sum(x)/length(x))",correct=TRUE),
+    allow_retry = TRUE
+  )
+)
+```

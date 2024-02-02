@@ -129,52 +129,103 @@ data(gapminder)
 
 
 ### Question 2 Wide Data and Long Data
-I created a simple data set manually as the following with 3 individuals and their income measured triple times.
-Please convert this wide data d to long data with a variable called TimePoint that takes values Measurement.1, Measurement.2 and Measurement.3 and on the right hand side of the column includes the corresponding incomes. 
+The code below shows a dataset "d" created manually as the following with 3 individuals and their incomes from three different types of investments.
 
 
-```{r wide,exercise=TRUE}
+
+```{r widedata,echo=T}
 library(tidyverse)
 d = data.frame("Name" = c("Barbie","Ken","Allan"),
-               "Measurement.1" = c(6662,5789,6267),
-               "Measurement.2" = c(10059.0,8749.5,9466.5),
-               "Measurement.3" = c(17667.2,15117.4,16360.2))
+               "Invest.1" = c(6662,5789,6267),
+               "Invest.2" = c(10059.0,8749.5,9466.5),
+               "Invest.3" = c(17667.2,15117.4,16360.2))
+
+d
+
 ```
 
+convert this __wide__ data "d" to __long__ data with a variable called Investment_Type that takes values "Invest.1", "Invest.2" and "Invest.3" and beside this variable there will be another variable that will have the corresponding investment incomes [the resulting dataset will have three variables in total]. 
+ 
+ \  
+ 
+```{r wide,exercise=TRUE}
+
+library(tidyverse)
+d = data.frame("Name" = c("Barbie","Ken","Allan"),
+               "Invest.1" = c(6662,5789,6267),
+               "Invest.2" = c(10059.0,8749.5,9466.5),
+               "Invest.3" = c(17667.2,15117.4,16360.2))
 
 
+
+
+```
 
 ```{r wide-hint}
-#...pivot_longer(cols=...,names_to=...,values_to=...)
+# d %>% pivot_longer(cols=...,names_to=...,values_to=...)
 ```
+
+
+\  
+
+\  
 
 ### Question 3 Matrix Multiplication
 
-I have created a table called demand that contains the number of cups of coffee and the amount of snacks that they paid for during their events. The second table is called Starbucks with the prices of coffee and snacks and the stars customers earn from buying the goods. Please use matrix multiplication to show the cost of coffee and amount of stars earned for each event.
+We have created a table called demand that contains the number of cups of coffee and the amount of snacks that were paid for during some events. The second table is called Starbucks with the prices of coffee and snacks and the stars customers earn from buying these goods. 
 
-```{r matrix,exercise=TRUE}
+Please use matrix multiplication to show the cost of coffee and amount of stars earned for each event.
+
+```{r matrixdata}
 demand = data.frame("Event" = c("A","B","C","D"),
                     "Coffee" = c(550,100,400,440),
                     "Snacks" = c(670,170,500,510))
-Starbucks = data.frame("Item" = c("Coffee","Snack"),
+
+
+starbucks = data.frame("Item" = c("Coffee","Snack"),
                    "Price" = c(6.99,2.99),
                    "Stars" = c(20,10))
+
+demand
+
+starbucks
 ```
 
 
+```{r matrix, exercise=TRUE}
+
+demand = data.frame("Event" = c("A","B","C","D"),
+                    "Coffee" = c(550,100,400,440),
+                    "Snacks" = c(670,170,500,510))
+
+
+starbucks = data.frame("Item" = c("Coffee","Snack"),
+                   "Price" = c(6.99,2.99),
+                   "Stars" = c(20,10))
+
+
+
+
+```
 
 
 ```{r matrix-hint}
-#as.matrix(demand %>% select(...))%*%as.matrix(Starbucks %>% select(...))
-#purchase = as.matrix(demand %>% select(where(is.numeric)))%*%as.matrix(Starbucks %>% select(where(is.numeric)))
+#m1 = as.matrix(demand %>% select(Coffee, Snacks))
+#m2 = as.matrix(starbucks %>% select(Price, Stars))
+
+#purchase = m1 %*% m2
 ```
+
+\  
+
+\  
 
 
 ### Question 4
 
 ```{r quiz1}
 quiz(
-  question("Suppose the matrix that you got with the cost of coffee and amount of stars earned for each event is called purchase, which of the options will generate the average cost of coffee and average  amount of stars earned for each event,select all that apply",
+  question("Suppose the matrix that you got with the cost of coffee and amount of stars earned for each event is called 'purchase'. Which of the options will generate the average cost of coffee and average  amount of stars earned per event,select all that apply",
     answer("lapply(list(purchase[,1],purchase[,2]), mean)",correct=TRUE),
     answer("apply(purchase,1,function(x) sum(x)/length(x))"),
     answer("apply(purchase,2,mean)",correct=TRUE),

@@ -1,0 +1,111 @@
+---
+title: "Week-5 Interactive Practice"
+author: "Created by: Congyu Hang and Shahriar Shams"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Getting familiar with Normal Distribution
+
+In this question, we will explore some properties of Normal Distribution.
+
+\  
+
+### a).
+
+In the lecture, we have seen the functions _pnorm()_ and _qnorm()_ which calculate parobability and quantile respectively.
+
+In this example we use _rnorm()_ which generates random numbers from a Normal distribution.
+
+
+Suppose there are 2 populations X and Y. Individuals in both populations are independent and we know that \(X_i\) ~ \(N(\mu=200, \sigma=10)\) and \(Y_i\) ~ \(N(\mu=210, \sigma=20)\). Please generate 60000 observations from each of these populations.
+
+```{r w51, exercise=TRUE}
+
+```
+
+
+
+```{r w51-hint}
+# X = rnorm(n = ..., mean = ..., sd = ...)
+# Y = rnorm(n = ..., mean = ..., sd = ...)
+```
+
+\  
+
+
+### b).
+
+Please create a density plot that shows observations from both populations with density of X plotted in color black and density of Y layered onto X in color red [one using _plot()_ and second one using _lines()_]. Please set xlim=c(160,260) while plotting. You can see how the parameters affect the locations and shapes of the distribution.
+
+```{r w52, exercise=TRUE}
+#copy your code from part(a) to generate X and Y first
+
+
+
+```
+
+```{r w52-hint}
+# plot(density(...), xlim = c(  ,  ), col = " ")
+# lines(density(...), col = " ")
+```
+
+\  
+
+### c).
+
+One of the properties of Normal Distribution is that linear combination of Normal Distribution random variables also follow Normal Distribution. One special case is when 2 Normal Distributions are *independent* and 
+\(X_i\) ~ \(N(\mu_x, \sigma_x)\) and \(Y_i\) ~ \(N(\mu_y, \sigma_y)\), then let \(Z_i = X_i + Y_i\) then \(Z_i\) ~ \(N(\mu_z, \sigma_z)\) where \(\mu_z = \mu_x + \mu_y\) and \(\sigma_z = \sqrt{\sigma_x^2 + \sigma_y^2}\). Please create vector Z as the sum of X and Y, then calculate the proportion of Z values that are less than 400 and compare it with the theoretical probability of Z<400 (i.e. P(Z<400))
+
+
+```{r w53, exercise=TRUE}
+
+```
+
+```{r w53-hint}
+# Create a vector Z first
+# Count how many of the observations in Z are <400
+# divide it by the length to get the proportion.
+#
+#
+# for theoretical calculation use pnorm(...)
+```
+
+\  
+
+### d).
+
+Another theorem relevant to Normal Distribution is Central Limit Theorem, when we have population with each individual *identically independently distributed* (any distribution with finite mean and variance) , when we sample from the sequence with large size, the distribution of the mean of sample will converge to normal (approximate distribution of sample mean). In this case, I have generated a Binomial sequence with each element an independent coin flip as the distribution.
+
+Please write a function that samples 100 observations from the sequence and return the mean of the 100 observations and then replicate the function for 100000 times,you can name the replication X_bar. Plot the histogram of X_bar and overlay it with density curve of X_bar, check if the distribution looks normal. You can also change the sample size to see whether the density curves changes.
+Hint: You might need to set freq=FALSe in hist()
+
+
+```{r w54,exercise=TRUE}
+flip_coin = rbinom(n=10000,size=1,prob = 0.6)
+```
+
+
+```{r w54-hint}
+sample_function= function(){
+  s=sample(flip_coin,size=100)
+  return(mean(s))
+}
+
+X_bar=replicate(10000, sample_function())
+
+#hist(..., freq=FALSE)
+#lines(density(...), col = "red")
+```
+
+
+
+
+
+

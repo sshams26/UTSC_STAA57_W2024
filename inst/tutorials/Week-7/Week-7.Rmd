@@ -1,0 +1,101 @@
+---
+title: "Week-7 Interactive Practice"
+author: "Created by: Congyu Hang and Shahriar Shams"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Testing Hypothesis
+
+
+### a). 
+In this question we will use the data set iris. Please plot the following density curve of *Sepal.Width* with respect to each species using different.
+
+```{r, message = FALSE, echo=FALSE}
+library(tidyverse)
+data("iris")
+ggplot(iris,aes(Sepal.Width)) + geom_density(aes(fill=factor(Species)),alpha=0.5)
+```
+
+```{r w71,exercise=TRUE}
+library(tidyverse)
+data("iris")
+#data set iris is loaded
+```
+
+
+```{r w71-hint}
+#ggplot(...) + geom_density(aes(fill=...))
+```
+
+
+
+### b). 
+We can observe that the distribution of *virginica's Sepal.Width* looks normal and based on results from Shapiro Wilk test (test of Normality, you can check this link if you're interested https://builtin.com/data-science/shapiro-wilk-test), we can assume the data is Normal and conduct further testing. 
+
+\[\text{Null Hypothesis (H0): } \mu = 3\]
+
+\[\text{Alternative Hypothesis (H1): } \mu \neq 3\]
+
+Confidence Level = 90%
+
+Please conduct the 2-sided test using the built-in function and interpret your result using p-value and confidence interval.
+Hint: You need to filter and select the data you need to do hypothesis testing.
+
+
+```{r w72,exercise=TRUE}
+library(tidyverse)
+data("iris")
+
+```
+
+
+```{r w72-hint}
+#... iris %>% filter(...Species == "virginica")
+#t.test(...)
+```
+
+
+### c). Multiple Choice
+t.test(width,mu=3,conf.level = 0.9)
+```{r quiz1}
+quiz(
+  question("Which of the following code would generate same p-value from the previous testing code?",
+    answer("t.test(width,mu=3,conf.level = 0.95)",correct=TRUE),
+    answer("t.test(width,mu=3,alternative='greater',conf.level = 0.9)"),
+    answer("t.test(width,mu=3,alternative='less',conf.level = 0.9)"),
+    answer("t.test(width,mu=2,conf.level = 0.9)"),
+    allow_retry = TRUE
+  )
+)
+```
+### d).
+
+Please use bootstrapping to generate p-value of
+
+\[\text{Null Hypothesis (H0): } \mu = 3\]
+
+\[\text{Alternative Hypothesis (H1): } \mu \neq 3\]
+
+```{r w73,exercise=TRUE}
+library(tidyverse)
+data("iris")
+
+```
+
+
+```{r w73-hint}
+# mu_H0 = ...
+# obs_mean = ...
+# center the samples around mu_H0
+# boot_func = function(){...}
+# boot_new_x_bar = replicate(...)
+# Hint: calculating 2-sided p-value
+# mean(abs(boot_new_x_bar-mu_H0)>abs(obs_mean-mu_H0))
+```
+

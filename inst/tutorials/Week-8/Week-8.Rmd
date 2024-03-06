@@ -1,0 +1,119 @@
+---
+title: "Week-8 Interactive Practice"
+author: "Created by: Congyu Hang and Shahriar Shams"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Comparison between Populations
+
+
+### a).
+
+Please extract data of Asia and Africa for the year of 1997 from gapminder table and plot the following density curve of these 2 continents with the variable *lifeExp*
+
+```{r,message = FALSE,echo=FALSE}
+library(tidyverse)
+library(gapminder)
+d = gapminder %>% dplyr::filter(continent %in% c( "Asia","Africa") & year == 1997)
+ggplot(d, aes(x = lifeExp,fill=continent))+geom_density(alpha=0.5)
+```
+
+
+```{r w81,exercise=TRUE}
+library(tidyverse)
+library(gapminder)
+```
+
+
+```{r w81-hint}
+#plot(...)
+#lines(...)
+```
+
+\  
+
+\  
+
+
+### b).
+Assume the 2 populations follow normal distribution.
+Compare the variances of *lifeExp* at 1997 in Asia and Africa at 99% confidence level.
+
+
+```{r w82,exercise=TRUE}
+library(tidyverse)
+library(gapminder)
+```
+
+
+```{r w82-hint}
+#var.test(...)
+```
+
+\  
+\  
+
+
+
+### c).
+
+Based on the result from part b), using an appropriate test, test the equality of the means of these 2 populations at 99% confidence level.
+
+```{r w83,exercise=TRUE}
+library(tidyverse)
+library(gapminder)
+```
+
+```{r w83-hint}
+#t.test(...)
+```
+
+\  
+\  
+
+
+### d).
+
+Conduct a paired t-test to test the equality of the mean of *lifeExp* of all countries between 1952 and 1957. Try constructing a wide table and then do the paired t-test.
+
+```{r w85,exercise=TRUE}
+library(tidyverse)
+library(gapminder)
+```
+
+```{r w85-hint}
+#pd = gapminder %>% select(...) %>% filter(...)
+#d2.wide = pd %>% pivot_wider(...)
+#t.test(...)
+```
+
+
+\  
+
+\  
+
+### e).
+By using the dataset from part (a), conduct a permutation test to test the equality of the two means (i.e. for Asia and Africa).
+
+```{r w84,exercise=TRUE}
+library(tidyverse)
+library(gapminder)
+```
+
+```{r w84-hint}
+#obs.diff = ...
+#perm.function = function(){
+  #temp_group_ind =
+  #d =...
+#}
+
+#perm_diff = replicate(...)
+```
+

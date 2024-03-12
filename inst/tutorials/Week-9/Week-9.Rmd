@@ -1,0 +1,161 @@
+---
+title: "Week-9 Interactive Practice"
+author: "Created by: Congyu Hang and Shahriar Shams"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Regression and Plot
+
+In this exercise, we will explore the Temp and Ozone variables in data set "airquality".
+
+\  
+
+### a).
+
+We want to predict Ozone using Temp. Recreate this following scatter plot of these 2 variables with an overlay of the *linear regression* smooth curve. 
+
+```{r w90, echo=F,message=F,warning=F}
+library(tidyverse)
+library(ggplot2)
+data("airquality")
+
+ggplot(airquality,aes(x=Temp, y = Ozone)) +
+  geom_point()+
+  geom_smooth(method="lm")
+
+```
+
+
+
+
+```{r w91,exercise=TRUE}
+library(tidyverse)
+library(ggplot2)
+data("airquality")
+```
+
+```{r w91-hint}
+#ggplot(...,aes(...)) +
+#  geom_point()+
+#  stat_smooth(...)
+#m = lm(...)
+#summary(m)
+```
+
+
+
+\  
+
+### b) 
+
+Fit a linear regression model of these 2 variables, report and interpret the coefficients. Based on the regression output and your plot from part(a), do you think the model explains the relationship of the variables well?
+
+\  
+
+
+```{r w912,exercise=TRUE}
+library(tidyverse)
+library(ggplot2)
+data("airquality")
+```
+
+```{r w912-hint}
+
+#m = lm(...)
+#summary(m)
+```
+
+
+
+
+### c).
+
+
+Calculate a 95% bootstrap CI for the regression coefficient of the term associated to "Temp".
+
+
+```{r w95,exercise=TRUE}
+
+```
+
+
+
+
+```{r w95-hint}
+#boot_function=function(){
+#  boot.d = d %>% sample_n(..., replace=...)
+#  m2 = lm(... ~ ,
+#           data = boot.d)
+#  s = coef(m2)[...]
+#  return(s)
+#}
+#output = replicate(...)
+#quantile(..., ...)
+```
+
+
+\  
+
+
+
+
+
+### d).
+
+Overlay a polynomial regression with highest degree = 2 on a scatter plot. Do you think the quadratic model look better fit than the linear model?
+
+
+```{r w92,exercise=TRUE}
+library(tidyverse)
+library(ggplot2)
+data("airquality")
+```
+
+```{r w92-hint}
+#ggplot(...,aes(...)) +
+#  geom_point()+
+#  stat_smooth(...,formula = ...=...+I(...))
+```
+
+
+\  
+
+### e).
+
+Perform a 5-fold cross validation using the 2nd degree polynomial regression model you used in part d and calculate an average MSE.
+
+
+
+```{r w94,exercise=TRUE}
+library(tidyverse)
+library(ggplot2)
+data("airquality")
+```
+
+```{r w94-hint}
+#d = airquality %>% mutate(group_ind = sample(c(1:5),
+#                                  size=nrow(airquality),
+#                                  replace = T))
+#mse_vec = ...
+
+#for (i in 1:5){
+  
+#  m2 = lm( ... ~ ,
+#           data = d %>% filter(group_ind != i))
+  
+#  pred_y = predict(..., ... =  d %>% filter(...)   )
+  
+#  mse_vec[i] = mean(...)^2, na.rm = ...)
+  
+#}
+
+#mean(...)
+```
+

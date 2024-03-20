@@ -1,0 +1,158 @@
+---
+title: "Week-10 Interactive Practice"
+author: "Created by: Congyu Hang and Shahriar Shams"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Categorical Variable Prediction
+
+We will use the data set "swiss" in today's exercise. Please check the descriptions below.
+
+[,1]	Fertility	‘common standardized fertility measure’
+
+\n
+
+[,2]	Agriculture	% of males involved in agriculture as occupation
+
+\n
+
+[,3]	Examination	% draftees receiving highest mark on army examination
+
+\n
+
+[,4]	Education	% education beyond primary school for draftees.
+
+\n
+
+[,5]	Catholic	% ‘catholic’ (as opposed to ‘protestant’).
+
+\n
+
+[,6]	Infant.Mortality	live births who live less than 1 year.
+
+
+\n
+
+
+The response variable here is Fertility.
+
+### a).
+
+#### i).Please mutate a binary variable called ftlt, which is equal to 1 when Fertility > 70, otherwise 0.
+
+#### ii).Then mutate group_ind variable for cross validation with proportions 0.6 (training) and 0.4(testing).
+
+#### iii). Use Agriculture, Education and Catholic as predictors and fit a logistic regression model based on the training data and report the parameters and interpret them.
+
+
+```{r w101,exercise = TRUE}
+set.seed(698)
+library(tidyverse)
+data("swiss")
+```
+
+```{r w101-hint}
+#...swiss %>% mutate(ftlt = ifelse(...))
+#d = d %>% mutate(group_ind = sample(c("train","test"),
+#                                    size = ...,
+#                                    prob = ...,
+#                                    replace = ...))
+#d_train = d %>% filter(group_ind == "train")
+#d_test = d %>% filter(group_ind == "test")
+#logit.mod = glm(...)
+```
+
+
+
+### b).
+
+Please first copy the code from the previous chunk. Then plot an ROC curve and report the AUC value.
+
+```{r w102,exercise = TRUE}
+set.seed(698)
+library(tidyverse)
+library(pROC)
+data("swiss")
+```
+
+```{r w102-hint}
+#p = predict(...,type = "response",...)
+#roc_logit = roc(...)
+#ggroc(...)
+#auc(...)
+```
+
+
+### c).
+
+Please first copy the code from part a.
+You might observe that the coefficient of Education has a slightly higher p-value, please construct a 95% bootstrapping CI based on 1000 replication of this regression coefficient from the model that we estimated previously and interpret. 
+
+```{r w103,warning = FALSE, exercise = TRUE}
+set.seed(698)
+library(tidyverse)
+data("swiss")
+```
+
+
+```{r w103-hint}
+#boot_func = function(){
+#  boot.d = d_train %>% sample_n(...,replace = ...)
+#  m= glm(...)
+#  s = coef(m)[3]
+#  return(s)
+#}
+#output = replicate(...)
+#quantile(...)
+```
+
+
+### d).
+
+
+Please first copy the code from part a.
+Use the same variables and training set from previous part to build a decision tree and plot it. Also, report your prediction accuracy based on test set.
+
+```{r w104,exercise = TRUE}
+set.seed(698)
+library(tidyverse)
+library(rpart)
+library(rattle)
+data("swiss")
+```
+
+```{r w104-hint}
+#rpart(...)
+#fancyRpartPlot(...)
+#conmat = ...
+```
+
+
+### e).
+
+Please use the initial data swiss and the variables that you used to construct model in previous parts do a 4-fold cross validation and report your average accuracy.
+
+```{r w105,exercise = TRUE}
+set.seed(698)
+library(tidyverse)
+data("swiss")
+```
+
+```{r w105-hint}
+#for (i in 1:k){
+#  m2 = ...
+  
+#  conmat = ...
+#}
+
+
+```
+
+

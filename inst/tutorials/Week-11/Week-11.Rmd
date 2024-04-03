@@ -1,0 +1,101 @@
+---
+title: "Week-11 Interactive Practice"
+author: "Created by: Congyu Hang and Shahriar Shams"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+### Random Forest
+
+In this exercise, we will use the data set “airquality” again to model the value of Ozone.
+
+
+#### a). Data Processing
+
+Please remove all lines with NA Ozone value, then impute all of NA Solar.R values using Wind and Temp. You can label the observations where you applied imputation for next question.
+
+```{r 111,exercise = TRUE}
+library(tidyverse)
+data("airquality")
+```
+
+```{r 111-hint}
+#d = airquality %>% filter(...)
+#d = d %>% mutate(label = ...)
+#can use impute_lm() or coalesce()
+```
+
+#### b).
+
+After plugging in the imputed values, please create a scatter plot with Solar.R on x-axis, Ozone on y-axis. In your plot please diversify the imputed observations using different color, to check whether they are outliers.
+
+You need to first copy the code from previous chunk.
+
+
+```{r 112,exercise = TRUE}
+library(ggplot2)
+library(tidyverse)
+data("airquality")
+```
+
+
+```{r 112-hint}
+#ggplot(...,aes(x = ...,y =...))+geom_point(aes(...))
+```
+
+
+
+#### c).
+
+Different ozone values represent correspond to different levels of air quality that affect people's health.
+
+Ozone <= 50 ~ "Good",  \n
+50 < Ozone <= 100  ~ "Moderate",   \n
+100 < Ozone <= 150  ~ "Unhealthy for sentitive",   \n
+Ozone > 150 ~ "Unhealthy"
+
+You need to first copy the code from previous chunk. Then mutate a variable in the data set called Air.Level based on Ozone values.
+
+
+
+```{r 113,exercise = TRUE}
+library(tidyverse)
+data("airquality")
+```
+
+#### d).
+
+Please conduct cross validation with proportion 0.6(training) and 0.4(test) and then use training data to construct a randomForest *decision tree model* with *Air.Level as response variable* and *Solar.R, Wind, Temp as predictors*. Set ntree = 500,importance = TRUE in your function.
+
+\n
+
+Plot varImpPlot and report your model accuracy on the test data set. Please copy your needed previous code first.
+
+```{r 114,exercise = TRUE}
+set.seed(857)
+library(tidyverse)
+library(randomForest)
+data("airquality")
+```
+
+
+#### e)
+
+Please conduct cross validation with proportion 0.6(training) and 0.4(test) and then use training data to construct a randomForest *linear regression model* with *Ozone as response variable* and *Solar.R, Wind, Temp as predictors*.
+
+\n
+
+Plot varImpPlot and report your model accuracy on the test data set. Please copy your needed previous code first.
+
+```{r 115,exercise = TRUE}
+library(tidyverse)
+library(randomForest)
+data("airquality")
+```
+
